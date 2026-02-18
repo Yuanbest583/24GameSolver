@@ -1,0 +1,239 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --bg-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #666;
+    --accent-bg: #f9fbf9;
+    --border-color: #eee;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    min-height: 100dvh;
+}
+
+.page-title {
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    color: var(--text-main);
+    letter-spacing: -1px;
+    text-align: center;
+}
+
+.calculator-card {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--card-bg);
+    padding: clamp(15px, 5vw, 30px);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    flex: 1;
+}
+
+.number-input {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    background: #fdfdfd;
+    -webkit-appearance: none;
+}
+
+.number-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+}
+
+.calculate-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    height: 54px;
+    touch-action: manipulation;
+}
+
+@media (min-width: 500px) {
+    .controls-container {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .calculate-btn {
+        width: 110px;
+        height: auto;
+    }
+
+    .calculate-btn::after {
+        content: "CALC";
+    }
+}
+
+@media (max-width: 499px) {
+    .calculate-btn::after {
+        content: "SOLVE NOW";
+    }
+}
+
+.calculate-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.error {
+    color: #ff4d4f;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.error:not(:empty) {
+    margin: 15px 0 5px 0;
+}
+
+.result-container {
+    margin-top: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #f5f5f5;
+    display: none;
+}
+
+.result-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+#result-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 550px) {
+    #result-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.solution {
+    position: relative;
+    padding: 14px 45px 14px 14px;
+    background-color: var(--accent-bg);
+    border: 1px solid #edf2ed;
+    border-radius: 12px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 15px;
+    color: #2e7d32;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+}
+
+.solution:hover {
+    border-color: var(--primary-color);
+}
+
+.copy-btn {
+    position: absolute;
+    right: 8px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+@media (min-width: 768px) {
+    .copy-btn {
+        opacity: 0;
+    }
+
+    .solution:hover .copy-btn {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 767px) {
+    .copy-btn {
+        opacity: 1;
+    }
+}
+
+.copy-btn.copied {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.stats {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #bbb;
+    text-align: center;
+}
+
+.copy-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
